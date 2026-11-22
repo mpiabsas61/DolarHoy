@@ -292,3 +292,21 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+.converter-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+}
+
+.converter-buttons button {
+    flex: 1;
+}
+
+.btn-limpiar {
+    background: #64748b;
+}
+
+.btn-limpiar:hover {
+    background: #475569;
+}

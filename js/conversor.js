@@ -22,6 +22,7 @@ function iniciarConversor(cotizaciones) {
     const btnConvertir = document.getElementById("btnConvertir");
     const resultado = document.getElementById("resultado");
     const detalle = document.getElementById("detalleConversion");
+    const btnLimpiar = document.getElementById("btnLimpiar");
 
     // Cargar los tipos de dólar disponibles
     selectDolar.innerHTML =
@@ -93,4 +94,16 @@ function iniciarConversor(cotizaciones) {
         }
 
     };
+    btnLimpiar.addEventListener("click", () => {
+
+    inputImporte.value = "";
+    selectDolar.value = "";
+    selectOperacion.value = "pesosDolares";
+
+    resultado.textContent = "$ 0,00";
+
+    detalle.textContent =
+        "Ingresá un importe para comenzar.";
+
+}); 
 }
