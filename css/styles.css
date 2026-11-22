@@ -310,3 +310,7 @@ footer {
 .btn-limpiar:hover {
     background: #475569;
 }
+
+.converter-section {
+    margin-top: 60px;
+}
