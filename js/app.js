@@ -3,6 +3,24 @@ const contenedor = document.getElementById("cotizaciones");
 const mensajeError = document.getElementById("mensajeError");
 const ultimaActualizacion = document.getElementById("ultimaActualizacion");
 const btnActualizar = document.getElementById("btnActualizar");
+const indicadorApi = document.getElementById("estadoApi");
+const messageStatusBtn = document.getElementById("market-status")
+const tooltipApi = bootstrap.Tooltip.getOrCreateInstance(indicadorApi);
+const tooltipApi_2 = bootstrap.Tooltip.getOrCreateInstance(messageStatusBtn);
+
+function actualizarEstadoApi(disponible, detalle) {
+    indicadorApi.classList.toggle("status-dot-ok", disponible);
+    indicadorApi.classList.toggle("status-dot-error", !disponible);
+    indicadorApi.classList.remove("status-dot-pending");
+    messageStatusBtn.setAttribute(
+        "aria-label",
+        disponible ? "API disponible" : `Error de API: ${detalle}`
+    );
+    // console.log(disponible,detalle)
+    messageStatusBtn.setAttribute("data-bs-title",detalle);
+    tooltipApi.setContent({ ".tooltip-inner": detalle });
+    tooltipApi_2.setContent({ ".tooltip-inner": detalle });
+}
 
 // Formatear importes en pesos argentinos
 function formatearMoneda(valor) {
@@ -44,7 +62,7 @@ function mostrarCotizaciones(cotizaciones) {
 
     ultimaActualizacion.textContent =
         "Última actualización: " +
-        new Date().toLocaleString("es-AR");
+        new Date().toLocaleString("es-AR",{ timeZone: 'America/Buenos_Aires', hour12: false });
 
         iniciarConversor(cotizaciones);
 }
@@ -55,20 +73,29 @@ async function cargarCotizaciones() {
     mensajeError.textContent = "";
     contenedor.innerHTML = "<p>Cargando cotizaciones...</p>";
 
+    let datos;
     try {
-
-        const datos = await obtenerCotizaciones();
-
-        mostrarCotizaciones(datos);
-
+        datos = await obtenerCotizaciones();
     } catch (error) {
-
         console.error("Error:", error);
-
+        const detalle = error instanceof Error
+            ? error.message
+            : "No se pudo conectar con la API. Verificá la URL o tu conexión.";
+        actualizarEstadoApi(false, detalle);
         contenedor.innerHTML = "";
         mensajeError.textContent =
             "No se pudieron cargar las cotizaciones. Intentá nuevamente.";
+        return;
+    }
 
+    actualizarEstadoApi(true, "API disponible");
+    try {
+        mostrarCotizaciones(datos);
+    } catch (error) {
+        console.error("Error:", error);
+        contenedor.innerHTML = "";
+        mensajeError.textContent =
+            "No se pudieron cargar las cotizaciones. Intentá nuevamente.";
     }
 }
 

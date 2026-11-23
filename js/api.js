@@ -4,15 +4,24 @@ const API_URL = "https://monedapi.ar/api/v2/usd";
 // Función para obtener las cotizaciones
 async function obtenerCotizaciones() {
 
-    const respuesta = await fetch(API_URL);
+    let respuesta;
 
-    // Verificar si la respuesta fue exitosa
-    if (!respuesta.ok) {
-        throw new Error("No se pudieron obtener las cotizaciones");
+    try {
+        respuesta = await fetch(API_URL);
+    } catch (error) {
+        throw new Error("No se pudo conectar con la API. Verificá la URL o tu conexión.");
     }
 
-    // Convertir la respuesta a formato JSON
-    const datos = await respuesta.json();
+    if (!respuesta.ok) {
+        throw new Error(`La API respondió con un error (HTTP ${respuesta.status}).`);
+    }
+
+    let datos;
+    try {
+        datos = await respuesta.json();
+    } catch (error) {
+        throw new Error("La API respondió con datos inválidos.");
+    }
 
     return datos;
 }

@@ -1,12 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dólar Hoy | Cotizaciones Argentinas</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
 
     <header class="header">
@@ -15,123 +18,156 @@
             <span>DÓLAR <strong>HOY</strong></span>
         </div>
 
-        <span class="header-label">MERCADO ARGENTINO</span>
+        <a href="#tipos-de-cambio" class="market-status bg-dark text-white">
+            Ver tipos de cambio
+        </a>
     </header>
-    
-  
-<main class="container">
 
-    <section class="welcome">
-        <div>
-            <p class="eyebrow">INFORMACIÓN FINANCIERA</p>
-            <h1>Cotizaciones del dólar</h1>
-            <p>Consultar los valores actualizados del mercado argentino.</p>
-        </div>
-
-        <div class="market-status">
-            <span class="status-dot"></span>
-            Datos de la API
-        </div>
-    </section>
-
-    <!-- PRIMERO: COTIZACIONES -->
-
-    <section class="section">
-
-        <div class="section-heading">
+    <main class="container">
+        <section class="welcome">
             <div>
-                <h2>Tipos de cambio</h2>
-                <p>Valores expresados en pesos argentinos (ARS).</p>
+                <!-- <p class="eyebrow">INFORMACIÓN FINANCIERA</p> -->
+                <h1>Información Financiera</h1>
+                <p>Consultar los valores actualizados del <span class="header-label">MERCADO ARGENTINO</span>.</p>
             </div>
-
-            <button id="btnActualizar">↻ Actualizar</button>
-        </div>
-
-        <p id="ultimaActualizacion" class="update-info">
-            Esperando cotizaciones...
-        </p>
-
-        <div id="cotizaciones" class="quotes-grid">
-            <p>Cargando cotizaciones...</p>
-        </div>
-
-        <p id="mensajeError" class="error-message"></p>
-
-    </section>
-
-    <!-- SEGUNDO: CONVERSOR -->
-
-    <section class="section converter-section">
-
-        <div class="section-heading">
-            <div>
-                <h2>Conversor de monedas</h2>
-                <p>Calcular equivalencias según la cotización actual.</p>
-            </div>
-        </div>
-
-        <div class="converter-card">
-
-            <div class="converter-form">
-
-                <div class="form-group">
-                    <label for="operacion">Tipo de conversión</label>
-
-                    <select id="operacion">
-                        <option value="pesosDolares">Pesos a dólares</option>
-                        <option value="dolaresPesos">Dólares a pesos</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="tipoDolar">Tipo de dólar</label>
-
-                    <select id="tipoDolar">
-                        <option value="">Seleccioná un dólar</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="importe">Importe a convertir</label>
-
-                    <input
-                        type="number"
-                        id="importe"
-                        min="0"
-                        step="any"
-                        placeholder="Ingresá un importe"
-                    >
-                </div>
-
-                <div class="converter-buttons">
-                    <button id="btnConvertir">Convertir</button>
-                    <button id="btnLimpiar" class="btn-limpiar">Limpiar</button>
-                </div>
-
-            </div>
-
-            <div class="converter-result">
-                <p>RESULTADO DE LA CONVERSIÓN</p>
-                <h2 id="resultado">$ 0,00</h2>
-                <span id="detalleConversion">
-                    Ingresá un importe para comenzar.
+            <div class="market-status">
+                <span id="estadoApi" class="status-dot-pending" aria-label="Verificando conexión con la API"
+                    tabindex="0">
+                </span>
+                <span id="market-status" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="esperando...">
+                    Estado de la API
                 </span>
             </div>
+        </section>
 
-        </div>
+        <!-- CONVERSOR -->
+        <section class="section converter-section" id="converter">
+            <div class="section-heading">
+                <div>
+                    <h2>Conversor de monedas</h2>
+                    <p>Calcular equivalencias según la cotización actual.</p>
+                </div>
+            </div>
 
-    </section>
+            <div class="row">
+                <div class="col-6">
 
-</main>
+                    <div class="converter-card p-2 rounded">
+                        <div class="converter-form">
+                            <div class="form-group mt-2">
+                                <label for="operacion">Tipo de conversión</label>
+                                <select id="operacion" class="form-select border-0">
+                                    <option value="pesosDolares">Pesos a dólares</option>
+                                    <option value="dolaresPesos">Dólares a pesos</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="tipoDolar">Tipo de dólar</label>
+
+                                <select id="tipoDolar" class="form-select border-0">
+                                    <option value="">Seleccioná un dólar</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="importe">Importe a convertir</label>
+
+                                <input class="form-control border-0" type="number" id="importe" min="0" step="any"
+                                    placeholder="Ingresá un importe">
+                            </div>
+                            <div class="converter-buttons">
+                                <button id="btnConvertir">Convertir</button>
+                                <button id="btnLimpiar" class="btn-limpiar">Limpiar</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="converter-result rounded p-2 text-center">
+                        <p>RESULTADO DE LA CONVERSIÓN</p>
+                        <h2 id="resultado" class="display-3">$ 0,00</h2>
+                        <span id="detalleConversion" class="fs-6"></span>
+                        <span id="errorConversion" class="fs-6"></span>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+        </section>
+
+
+        <!-- COTIZACIONES -->
+
+        <section class="section mt-5 py-5" id="tipos-de-cambio">
+
+            <div class="row">
+                <div class="col-8">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Tipos de cambio</h2>
+                            <p class="">Valores expresados en pesos argentinos (ARS).</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-4 text-end">
+                    <div class="content">
+                        <button id="btnActualizar">↻ Actualizar</button>
+                        <p id="ultimaActualizacion" class="update-info">
+                            Esperando cotizaciones...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div id="cotizaciones" class="quotes-grid">
+                <p>Cargando cotizaciones...</p>
+            </div>
+            <p id="mensajeError" class="error-message"></p>
+
+            <!-- BTN volver arriba -->
+            <div class="volver text-center pt-4">
+                <a href="#converter" class="button text-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z" />
+                    </svg>
+                    volver al conversor de monedas</a>
+            </div>
+
+        </section>
+
+
+    </main>
 
 
     <footer>
-        <p>Dólar Hoy · Proyecto académico de consumo de API REST</p>
+        <div class="container">
+            <div class="data">
+                <div class="logo">
+                    <span>DÓLAR <strong>HOY</strong></span>
+                </div>
+                <p class="lead">Proyecto académico de consumo de API REST</p>
+            </div>
+            <hr>
+            <div class="legales text-center">
+                Datos de fuentes públicas, con fines informativos. No es asesoramiento financiero.
+            </div>
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.9/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/api.js"></script>
     <script src="./js/conversor.js"></script>
     <script src="./js/app.js"></script>
 
 </body>
+
 </html>

@@ -23,10 +23,11 @@ function iniciarConversor(cotizaciones) {
     const resultado = document.getElementById("resultado");
     const detalle = document.getElementById("detalleConversion");
     const btnLimpiar = document.getElementById("btnLimpiar");
+    const valorDefault = "$ 0,00";
 
     // Cargar los tipos de dólar disponibles
     selectDolar.innerHTML =
-        '<option value="">Seleccioná un dólar</option>';
+        '<option value="">Seleccioná el tipo de dólar...</option>';
 
     cotizaciones.forEach(cotizacion => {
 
@@ -45,14 +46,16 @@ function iniciarConversor(cotizaciones) {
         const tipoDolar = selectDolar.value;
 
         if (!inputImporte.value || !Number.isFinite(importe) || importe <= 0) {
-            resultado.textContent = "Importe inválido";
+            resultado.textContent = valorDefault;
             detalle.textContent = "Ingresá un importe mayor a cero.";
+            detalle.style="color:red;";
             return;
         }
 
         if (!tipoDolar) {
-            resultado.textContent = "Seleccioná un dólar";
-            detalle.textContent = "Debés elegir una cotización.";
+            resultado.textContent = valorDefault;
+            detalle.textContent = "Debés elegir un tipo de cotización.";
+            detalle.style="color:red;";
             return;
         }
 
@@ -84,6 +87,7 @@ function iniciarConversor(cotizaciones) {
 
             detalle.textContent =
                 `Cotización de venta: ${formatearMoneda(cotizacion.sell)}`;
+            detalle.style="";
 
         } else {
 
@@ -102,8 +106,7 @@ function iniciarConversor(cotizaciones) {
 
     resultado.textContent = "$ 0,00";
 
-    detalle.textContent =
-        "Ingresá un importe para comenzar.";
+    detalle.textContent ="Ingresá un importe para comenzar.";
 
 }); 
 }
