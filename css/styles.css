@@ -24,7 +24,9 @@ body {
     color: #f1f5f9;
     line-height: 1.6;
 }
-
+a{
+    text-decoration: none;
+}
 
 /*=============================
   ENCABEZADO
@@ -32,8 +34,8 @@ body {
 
 .header {
     background: #151b21;
-    min-height: 76px;
-    padding: 15px 7%;
+    /* min-height: 76px;
+    padding: 15px 7%; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -51,7 +53,10 @@ body {
     font-size: 21px;
     font-weight: 800;
     letter-spacing: -0.7px;
-}
+    }
+    .logo .img{
+        width: 25%;
+    }
 
 .logo-icon {
     background: #087f5b;
@@ -88,18 +93,14 @@ body {
 }
 
 /*=============================
-  CONTENIDO PRINCIPAL
-=============================*/
-
-.container {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 55px 25px 70px;
-}
-
-/*=============================
   PRESENTACIÓN
 =============================*/
+
+.hero{
+    /* background: url("../img/hero-bg.png");
+    background-size: contain; */
+}
+
 
 .welcome {
     display: flex;
@@ -291,11 +292,16 @@ button:hover, .button:hover {
 .converter-card {
     background: #1a222b;
     border: 1px solid #30473e;
-}
+    transition: .5s;
+    }
+    .converter-card:hover,.converter-form:hover{
+        background: #012015;
+    }
 
 
 .converter-form {
     background: #1a222b;
+    transition: .5s;
 }
 
 
@@ -416,10 +422,10 @@ footer {
     .header {
         padding: 15px 5%;
     }
-
+/* 
     .container {
         padding: 40px 22px 55px;
-    }
+    } */
 
     .welcome {
         flex-direction: column;

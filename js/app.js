@@ -104,3 +104,14 @@ btnActualizar.addEventListener("click", cargarCotizaciones);
 
 // Cargar al iniciar la página
 cargarCotizaciones();
+
+
+// animacion logo
+const elemento = document.getElementById('logo');
+  const animacion = 'animate__bounceInDown'; // Cambia por la animación que quieras
+  setInterval(() => {
+    elemento.classList.add(animacion);
+    elemento.addEventListener('animationend', () => {
+      elemento.classList.remove(animacion);
+    }, { once: true });
+  }, 10000); 
