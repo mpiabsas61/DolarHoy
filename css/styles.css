@@ -97,8 +97,10 @@ a{
 =============================*/
 
 .hero{
-    /* background: url("../img/hero-bg.png");
-    background-size: contain; */
+    background: url("../img/hero-banner.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 50vh;
 }
 
 
@@ -176,9 +178,7 @@ h1, h2 {
     animation: dot .2s steps(1) infinite;
 }
 
-@keyframes dot{
-    50%{background: none;}
-}
+
 /* .status-dot-ok:after{
     content:"Datos de la API";
 } */
@@ -299,6 +299,13 @@ button:hover, .button:hover {
     }
 
 
+.piggy{
+    top:-30%;
+    left: 37%;
+    z-index: -1;
+    animation: flotar 5s infinite ease-in-out;
+    }
+
 .converter-form {
     background: #1a222b;
     transition: .5s;
@@ -394,6 +401,22 @@ footer {
 .quote-values strong {
     color: #35d49a;
 }
+
+
+/*=============================
+  ANIMACIONES
+=============================*/
+
+@keyframes dot{
+    50%{background: none;}
+}
+
+@keyframes flotar {
+    50%{transform: translateY(-25px);}
+}
+
+
+
 
 /*=============================
   RESPONSIVE

@@ -34,8 +34,8 @@
     </header>
 
     <!-- HERO -->
-     <section class="container-fuild hero">
-         <div class="container welcome mt-5 py-5">
+     <section class="container-fluid hero bg-dark py-5 ">
+         <div class="container welcome d-flex  align-items-center">
              <div>
                  <!-- <p class="eyebrow">INFORMACIÓN FINANCIERA</p> -->
                  <h1 class="fw-bold text-uppercase animate__bounceInDown animate__animated">Info Financiera</h1>
@@ -53,9 +53,14 @@
      </section>
 
     <!-- CONVERSOR -->
-    <div id="converter" class="mt-5 pt-5"></div>
+    <div id="converter" class="mt-4 pt-5"></div>
 
-    <section class=" container section converter-section ">
+    <section class="container section converter-section position-relative">
+
+        <div class="piggy w-25 position-absolute animate__animated">
+            <img src="img/piggy-bank.png" alt="" class="img-fluid">
+        </div>
+
         <div class="section-heading">
             <div>
                 <h2>Conversor de monedas</h2>
@@ -164,7 +169,7 @@
                 <div class="">
                     <span class="fw-bold fs-5 text-secondary">DÓLAR HOY</span>
                 </div>
-                <p class="lead">Proyecto académico de consumo de API REST</p>
+                <p class="lead">Proyecto realizado gracias a <a href="https://monedapi.ar/">MonedAPI</a></p>
             </div>
             <hr>
             <div class="legales text-center">
